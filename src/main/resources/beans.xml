@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    <bean id="mainView" class="com.todo.ui.MainView" init-method="init" scope="prototype">
+        <property name="taskEditor" ref="taskEditor"/>
+        <property name="tasksHolder" ref="tasksHolder"/>
+        <property name="delete" ref="button"/>
+        <property name="addNewBtn" ref="button"/>
+        <property name="headerCheckbox" ref="checkbox"/>
+        <property name="actions" ref="horizontalLayout"/>
+        <property name="grid" ref="grid"/>
+        <property name="binder" ref="binder"/>
+        <lookup-method name="getButton" bean="button"/>
+        <lookup-method name="getCheckbox" bean="checkbox"/>
+    </bean>
+    
+    <bean id="taskEditor" class="com.todo.editor.TaskEditor" init-method="init" scope="prototype">
+        <property name="checkbox" ref="checkbox"/>
+        <property name="save" ref="button"/>
+        <property name="delete" ref="button"/>
+        <property name="tasksHolder" ref="tasksHolder"/>
+        <property name="actions" ref="horizontalLayout"/>
+        <property name="binder" ref="binder"/>
+        <property name="taskItem" ref="textField"/>
+    </bean>
+
+    <bean id="tasksHolder" class="com.todo.entity.TasksHolder" init-method="init">
+        <property name="tasks" ref="tasksList"/>
+    </bean>
+    
+    <bean id="grid" class="com.vaadin.flow.component.grid.Grid" scope="prototype">
+        <constructor-arg value="com.todo.entity.Task"/>
+    </bean>
+    
+    <bean id="binder" class="com.vaadin.flow.data.binder.Binder" scope="prototype">
+        <constructor-arg value="com.todo.entity.Task"/>
+    </bean>
+
+    <bean id="tasksList" class="java.util.ArrayList"/>
+    <bean id="button" class="com.vaadin.flow.component.button.Button" scope="prototype"/>
+    <bean id="checkbox" class="com.vaadin.flow.component.checkbox.Checkbox" scope="prototype"/>
+    <bean id="horizontalLayout" class="com.vaadin.flow.component.orderedlayout.HorizontalLayout" scope="prototype"/>
+    <bean id="textField" class="com.vaadin.flow.component.textfield.TextField" scope="prototype"/>
+    
+</beans>
